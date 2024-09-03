@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>GeoMag example</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  </head>
+
+  <body>
+
+    <script id="jsgeomag" type="module">
+
+       import GeoMag from './js/geomag.class.js';
+
+       var arrPath = window.location.href.split("/");
+       arrPath.pop();
+       var strPath = arrPath.join("/");
+
+       var strCOFClassData = "";
+
+       var objCOFClassRequest = $.ajax({
+         url: strPath + "./cof/WMM2020.COF",
+         statusCode: {
+           404: function () {
+             console.log("Could not load the COF file");
+           }
+         }
+       });
+
+       objCOFClassRequest.done(function (msg) {
+         console.log("Success loading COF...");
+         strCOFClassData = msg;
+       });
+
+       objCOFClassRequest.fail(function (jqXHR, textStatus) {
+         console.log("Loading COF failed... " + textStatus);
+       });
+
+       // Button handler
+       $("#btnCalc").click(function () {
+
+         var floatLat = parseFloat(document.getElementById("txtLat").value);
+         var floatLon = parseFloat(document.getElementById("txtLon").value);
+         var floatAlt = parseFloat(document.getElementById("txtAlt").value);
+         var dteCalcDate = new Date(document.getElementById("txtDate").value);
+
+         // Init object
+         var objGeoMag = new GeoMag(strCOFClassData);
+
+         // Calculate model
+         objGeoMag.calculate(floatLat, floatLon, floatAlt, dteCalcDate);
+
+         document.getElementById("outResultDec").innerHTML = objGeoMag.getDec + "&deg; <br>";
+         document.getElementById("outResultDip").innerHTML = objGeoMag.getDip + "&deg;";
+         document.getElementById("outResultTi").innerHTML = objGeoMag.getTi + " nT";
+         document.getElementById("outResultBh").innerHTML = objGeoMag.getBh + " nT";
+         document.getElementById("outResultBx").innerHTML = objGeoMag.getBx + " nT";
+         document.getElementById("outResultBy").innerHTML = objGeoMag.getBy + " nT";
+         document.getElementById("outResultBz").innerHTML = objGeoMag.getBz + " nT";
+         document.getElementById("outResultEpoch").innerHTML = objGeoMag.getEpoch;
+         document.getElementById("outResultLat").innerHTML = objGeoMag.getLatDec + "&deg;";
+         document.getElementById("outResultLon").innerHTML = objGeoMag.getLonDec + "&deg;";
+
+       });
+
+
+    </script>
+
+    <main>
+      <div>
+        <h1>Magnetic declination</h1>
+        <p>
+          This script is used to determine the magnetic declination of a geographic point on the globe.
+          The data comes from the magnetic model available from
+          <a href="https://www.ncei.noaa.gov/products/world-magnetic-model" target="_blank">NOAA National Geophysical Data Center</a>.
+          The data is valid for 2020 to 2025.
+        </p>
+      </div>
+
+      <section id="sectionOutput">
+        <h5><b>Output:</b></h5>
+        <table>
+          <tr>
+            <td>Geomagnetic declination (degrees): </td>
+            <td><output id="outResultDec"></output></td>
+          </tr>
+          <tr>
+            <td>Geomagnetic inclination (grader): </td>
+            <td><output id="outResultDip"></output></td>
+          </tr>
+          <tr>
+            <td>Total intensity of the geomagnetic field (nT):</td>
+            <td><output id="outResultTi"></output></td>
+          </tr>
+          <tr>
+            <td>Horizontal intensity of the geomagnetic field (nT):</td>
+            <td><output id="outResultBh"></output></td>
+          </tr>
+          <tr>
+            <td>Northern component of the geomagnetic field (nT):</td>
+            <td><output id="outResultBx"></output></td>
+          </tr>
+          <tr>
+            <td>Eastern component of the geomagnetic field (nT):</td>
+            <td><output id="outResultBy"></output></td>
+          </tr>
+          <tr>
+            <td>Vertical component of the geomagnetic field (nT):</td>
+            <td><output id="outResultBz"></output></td>
+          </tr>
+          <tr>
+            <td>Latitude:</td>
+            <td><output id="outResultLat"></output></td>
+          </tr>
+          <tr>
+            <td>Longitude:</td>
+            <td><output id="outResultLon"></output></td>
+          </tr>
+          <tr>
+            <td>Geomagnetisk epoch:</td>
+            <td><output id="outResultEpoch"></output></td>
+          </tr>
+        </table>
+      </section>
+
+      <section>
+        <h2>Input</h2>
+        <div>
+          <div>
+            <label for="txtLat">Latitude:</label>
+            <input type="number" name="txtLat" id="txtLat" value="56.685332" step="any" min="-180" max="180">
+          </div>
+          <div>
+            <label for="txtLon">Longitude:</label>
+            <input type="number" name="txtLon" id="txtLon" value="12.832764" step="any" min="-90" max="90">
+          </div>
+          <div>
+            <label for="txtAlt">Height (amsl):</label>
+            <input type="number" name="txtAlt" id="txtAlt" value="31" min="10" max="100">
+          </div>
+          <div>
+            <label for="txtDate">Date:</label>
+            <input type="date" name="txtDate" id="txtDate" value="2024-08-01">
+          </div>
+        </div>
+        <div>
+          <button type="button" id="btnCalc">Calculate</button>
+        </div>
+      </section>
+    </main>
+
+  </body>
+</html>
