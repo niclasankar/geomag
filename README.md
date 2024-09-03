@@ -8,15 +8,36 @@ on earth from a geomagnetic model from [NOAA](https://www.ncei.noaa.gov/products
 The code was originally created by Github user cmweiss some years ago and have not been updated in a long time.
 I have created a javascript class from the code for use in my own projects.
 
-**Usage:
+##Usage:
 - Import the geomag class in your script
-- Load the COF file via AJAX or some other method
+- Load the COF file by AJAX or some other method
 
-´´´bash
-         // Init object
-         var objGeoMag = new GeoMag(strCOFClassData);
+```bash
+  // Init object
+  var objGeoMag = new GeoMag(strCOFClassData);
 
-         // Calculate model
-         objGeoMag.calculate(floatLat, floatLon, floatAlt, dteCalcDate);
+  // Calculate model
+  objGeoMag.calculate(floatLat, floatLon, floatAlt, dteCalcDate);
 
-´´´
+  // Geomagnetic declination
+  floatDec = objGeoMag.getDec;
+  // Geomagnetic inclination
+  floatDip = objGeoMag.getDip;
+  // Total intensity of the geomagnetic field
+  floatTi = objGeoMag.getTi;
+  // Horizontal intensity of the geomagnetic field
+  floatBh = objGeoMag.getBh;
+  // Northern component of the geomagnetic field
+  floatBx = objGeoMag.getBx;
+  // Eastern component of the geomagnetic field
+  floatBy = objGeoMag.getBy;
+  // Vertical component of the geomagnetic field
+  floatBz = objGeoMag.getBz;
+  // Epoch
+  varEpoch = objGeoMag.getEpoch;
+  // Latitude
+  floatLat = objGeoMag.getLatDec;
+  // Longitude
+  floatLon = objGeoMag.getLonDec;
+
+```
