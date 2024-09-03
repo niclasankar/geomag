@@ -1,4 +1,4 @@
-# geomag Javascript class
+# GeoMag Javascript class
 
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 
@@ -8,7 +8,7 @@ on earth from a geomagnetic model from [NOAA](https://www.ncei.noaa.gov/products
 The code was originally created by Github user cmweiss some years ago and have not been updated in a long time.
 I have created a javascript class from the code for use in my own projects.
 
-##Usage:
+## Usage:
 - Import the geomag class in your script
 - Load the COF file by AJAX or some other method
 - Create a GeoMag instance
