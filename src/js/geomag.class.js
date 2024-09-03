@@ -3,11 +3,11 @@
   *
   * Based on the works by Christopher Weiss Github:cmweiss
   *
-  * @package AnkarGIS
+  * @package geomag
   * @filesource geomag.class.js
-  * @author Niclas Ankar <webmaster@ankars.se>
-  * @copyright 2022 Ankars.se
-  * @link https://www.ankars.se
+  * @author Niclas Ankar
+  * @copyright 2024 niclasankar
+  * @link https://github.com/niclasankar/geomag
   * @version 1.0
   *
   */
@@ -104,7 +104,12 @@
      }
 
      this.wmm = wmm;
-     return {epoch: epoch, model: model, modelDate: modelDate, wmm: wmm};
+     return {
+       epoch: epoch,
+       model: model,
+       modelDate: modelDate,
+       wmm: wmm
+     };
    }
 
    /**
@@ -161,7 +166,12 @@
      }
      k[1][1] = 0.0;
 
-     return {epoch: wmm.epoch, k: k, c: c, cd: cd};
+     return {
+       epoch: wmm.epoch,
+       k: k,
+       c: c,
+       cd: cd
+     };
 
    }
 
@@ -422,7 +432,18 @@
      this.glon = glon;
      this.gv = gv;
 
-     return {dec: dec, dip: dip, ti: ti, bh: bh, bx: bx, by: by, bz: bz, lat: glat, lon: glon, gv: gv};
+     return {
+       dec: dec,
+       dip: dip,
+       ti: ti,
+       bh: bh,
+       bx: bx,
+       by: by,
+       bz: bz,
+       lat: glat,
+       lon: glon,
+       gv: gv
+     };
    }
 
    /**
@@ -431,7 +452,18 @@
     *  @returns {object} Object containing the calculated data
     */
    get getMagObject() {
-     return {dec: this.dec, dip: this.dip, ti: this.ti, bh: this.bh, bx: this.bx, by: this.by, bz: this.bz, lat: this.glat, lon: this.glon, gv: this.gv};
+     return {
+       dec: this.dec,
+       dip: this.dip,
+       ti: this.ti,
+       bh: this.bh,
+       bx: this.bx,
+       by: this.by,
+       bz: this.bz,
+       lat: this.glat,
+       lon: this.glon,
+       gv: this.gv
+     };
    }
 
    /**
@@ -459,7 +491,10 @@
     *  @returns {object} Object containing the a and b variable
     */
    get getEllipsoid() {
-     return {a: this.a, b: this.b};
+     return {
+       a: this.a,
+       b: this.b
+     };
    }
 
    /**
