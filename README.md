@@ -14,7 +14,7 @@ I have created a javascript class from the code for use in my own projects.
 - Create a GeoMag instance
 - Call the calculate method supplying longitude, latitude, altitude and date
 
-```bash
+```javascript
   import GeoMag from './js/geomag.class.js';
 
   var path = window.location.href.split("/");
